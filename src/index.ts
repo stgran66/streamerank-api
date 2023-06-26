@@ -1,13 +1,25 @@
-import express, { Request, Response, Application } from 'express';
-
-const app: Application = express();
+const app = require('./app.ts');
+const mongoose = require('mongoose');
+require('dotenv').config();
 
 const PORT = process.env.PORT || 8000;
+const uriDB = process.env.DB_HOST;
 
-app.get('/', (req: Request, res: Response): void => {
-  res.send('Hello TS with Node.js');
-});
+const connection = mongoose.connect(uriDB);
 
-app.listen(PORT, (): void => {
-  console.log(`Server running here https://localhost:${PORT}`);
-});
+connection
+  .then(() => {
+    console.log('Database connection successful');
+  })
+  .catch((err: Error) => {
+    console.log(`Cannot connect to database. Error message: ${err.message}`);
+    process.exit(1);
+  })
+  .then(() => {
+    app.listen(PORT, (): void => {
+      console.log(`Server running here https://localhost:${PORT}`);
+    });
+  })
+  .catch((err: Error) => {
+    console.log(`Server not running. Error message: ${err.message}`);
+  });
