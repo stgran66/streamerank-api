@@ -12,7 +12,7 @@ const getStreamerById = async (
   const result = await Streamer.findById(id);
 
   if (!result) {
-    throw httpError(404);
+    return next(httpError(409));
   }
 
   res.json(result);

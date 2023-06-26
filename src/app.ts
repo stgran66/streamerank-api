@@ -21,7 +21,7 @@ app.use(
     res: Response,
     next: NextFunction
   ): void => {
-    console.log('sdsd');
+    console.log('sdsdasddddddddddddddddddddddddddddddddddddddddddddddddddd');
     const { status = 500, message = 'Server Error' } = err;
     res.status(status).json({
       message,
