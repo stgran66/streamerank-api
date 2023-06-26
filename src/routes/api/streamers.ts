@@ -1,25 +1,28 @@
-import express, { Request, Response } from 'express';
+import express, { Router } from 'express';
+const {
+  getAllStreamers,
+  getStreamerById,
+  addStreamer,
+  voteStreamer,
+} = require('../../controllers/streamers');
+const { validateId, validateBody } = require('../../middlewares');
+const { streamerSchemas } = require('../../models/streamer');
 
-const streamersRouter = express.Router();
+const { addStreamerSchema, voteSchema } = streamerSchemas;
 
-streamersRouter.get('/', (req: Request, res: Response) => {
-  console.log('Getting streamers');
-  res.send('ok');
-});
+const streamersRouter: Router = express.Router();
 
-streamersRouter.post('/', (req: Request, res: Response) => {
-  console.log('posting new streamer');
-  res.send('ok');
-});
+streamersRouter.get('/', getAllStreamers);
 
-streamersRouter.get('/:id', (req: Request, res: Response) => {
-  console.log('Getting streamer by id');
-  res.send('ok');
-});
+streamersRouter.post('/', validateBody(addStreamerSchema), addStreamer);
 
-streamersRouter.put('/:id/vote', (req: Request, res: Response) => {
-  console.log('Voting for streamer by id');
-  res.send('ok');
-});
+streamersRouter.get('/:id', validateId, getStreamerById);
+
+streamersRouter.put(
+  '/:id/vote',
+  validateId,
+  validateBody(voteSchema),
+  voteStreamer
+);
 
 module.exports = streamersRouter;
