@@ -3,6 +3,7 @@ import { Schema } from 'joi';
 
 const { httpError } = require('../utils/httpError');
 
+// validating request body by joi
 const validateBody = (schema: Schema) => {
   const func = (req: Request, res: Response, next: NextFunction) => {
     const { error } = schema.validate(req.body);

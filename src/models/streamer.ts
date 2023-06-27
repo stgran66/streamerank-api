@@ -1,6 +1,9 @@
 const { Schema, model } = require('mongoose');
 const Joi = require('joi');
 
+// Valid streamer's platforms
+const platforms = ['twitch', 'youtube', 'tiktok', 'kick', 'rumble'];
+
 const streamerSchema = new Schema(
   {
     name: {
@@ -9,6 +12,7 @@ const streamerSchema = new Schema(
     },
     platform: {
       type: String,
+      enum: platforms,
       required: [true, "Set streamer's platform"],
     },
     description: { type: String },
@@ -20,16 +24,24 @@ const streamerSchema = new Schema(
       type: Number,
       default: 0,
     },
+    avatar: {
+      type: String,
+      default: 'https://i.pravatar.cc/300',
+    },
   },
   { versionKey: false }
 );
 
+// Joi schema for adding streamer
 const addStreamerSchema = Joi.object({
   name: Joi.string().required(),
-  platform: Joi.string().required(),
+  platform: Joi.string()
+    .required()
+    .valid(...platforms),
   description: Joi.string(),
 });
 
+// Joi schema for voting for streamer
 const voteSchema = Joi.object({
   vote: Joi.string().valid('upvote', 'downvote').required(),
 });

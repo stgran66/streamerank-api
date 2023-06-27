@@ -1,6 +1,6 @@
 const getAllStreamers = require('./getAll');
 const getStreamerById = require('./getById');
-const addStreamer = require('./addStreamer');
+const addStreamer = require('./add');
 const voteStreamer = require('./vote');
 
 module.exports = {

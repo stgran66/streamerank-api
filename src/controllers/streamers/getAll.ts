@@ -11,6 +11,7 @@ const getAllStreamers = async (
   const result = await Streamer.find({});
 
   if (!result) {
+    // handling empty response
     next(httpError(404));
   }
 

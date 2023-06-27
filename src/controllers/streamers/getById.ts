@@ -12,7 +12,8 @@ const getStreamerById = async (
   const result = await Streamer.findById(id);
 
   if (!result) {
-    return next(httpError(409));
+    // handling empty response
+    return next(httpError(404));
   }
 
   res.json(result);

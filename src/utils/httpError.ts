@@ -9,6 +9,7 @@ const messages = {
 
 type Status = 400 | 401 | 403 | 404 | 409 | 500;
 
+// new class for http errors
 class HttpError extends Error {
   public readonly status: number;
 
@@ -18,7 +19,7 @@ class HttpError extends Error {
     this.status = status;
   }
 }
-
+// function for creating instances of HTTP errors by status
 const httpError = (status: Status, message = messages[status]) => {
   return new HttpError(message, status);
 };
