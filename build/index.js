@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const app = require('./app.ts');
 const mongoose = require('mongoose');
 require('dotenv').config();
+const app = require('./app');
 const PORT = process.env.PORT || 8000;
 const uriDB = process.env.DB_HOST;
 const connection = mongoose.connect(uriDB);
