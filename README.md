@@ -5,24 +5,24 @@
 ## Table of Contents
 
 - [General Info](#general-information)
-- [Technologies Used](#technologies-used)
 - [Setup](#setup)
 - [Usage](#usage)
 - [Schemas](#schemas)
+- [Resources](#resources)
 
 ## General Information
 
-This project was created to connect [streamer ranking app](https://stgran66.github.io/streamerank/) with MongoDB Atlas. It is a REST API written in Node.js to store streamers data in MongoDB Atlas.This project was created to make a list of streamers from different platforms and rank them with upvotes or downvotes.
-For now, there is an option to add new streamers and vote for any of them. Work is in progress... <img src="https://media.giphy.com/media/XzqEFZ06NSFgXaut2g/giphy.gif" alt="in progress" width="200px"/>
+This project was created to connect [streamer ranking app](https://stgran66.github.io/streamerank/) with MongoDB Atlas. It is a REST API written in Node.js to store streamers' data in MongoDB Atlas. Its purpose is  to make a list of streamers from different platforms and rank them with upvotes or downvotes.
+For now, there is an option to add new streamers and vote for any of them.
 
 
 ## [Host address](https://streamerank-api.onrender.com/)
 ## Setup
 
-To setup project just download repository and install dependencies. Example configuration file .env.example is in route directory. Your configuration should be stored in .env file in project route directory.
+To set up the project just download the repository and install dependencies. Example configuration file .env.example is in route directory. Your configuration should be stored in .env file in the project route directory.
 
-- PORT - can be ommited, by default will use 8000.
-- DB_HOST - here should be a link with username and password to connect to MongoDB Atlas. Is provided by MongoDB Atlas control panel
+- PORT - can be omitted, by default will use 8000.
+- DB_HOST - here should be a link with a username and password to connect to MongoDB Atlas. Is provided by the MongoDB Atlas control panel
 
 
 ## Usage
@@ -33,11 +33,11 @@ Endpoints to use
 
 #### GET method /streamers
 
-Get list of streamers.
+Get the list of streamers.
 - Parameters:
   No parameters
 - Request body:
-  No requst body
+  No request body
 - Responses:
   - 200 - Streamers found
   - 404 - Collection not found
@@ -56,7 +56,7 @@ Get one streamer data by id
 
 #### POST method /streamers
 
-Add streamer to  collection
+Add a streamer to  the collection
 
 - Parameters:
   No parameters
@@ -89,7 +89,36 @@ Update streamers' votes
   - 200 - Vote updated
   - 400 - Validation error
   - 500 - Server error
+## Schemas
 
+### Streamer
+
+```javascript
+  {
+    name: {
+      type: String,
+      required: [true, "Set streamer's name"],
+    },
+    platform: {
+      type: String,
+      enum: platforms,
+      required: [true, "Set streamer's platform"],
+    },
+    description: { type: String },
+    upvote: {
+      type: Number,
+      default: 0,
+    },
+    downvote: {
+      type: Number,
+      default: 0,
+    },
+    avatar: {
+      type: String,
+      default: 'https://i.pravatar.cc/300',
+    },
+  },
+```
 
 ## Resources
 
